@@ -10,6 +10,7 @@ namespace asp.net_core_angular_vehicle_manager.Mapping
         {
             CreateMap<Make, MakeResource>();
             CreateMap<Model, ModelResource>();
+            CreateMap<Feature, FeatureResource>();
         }
     }
 }
