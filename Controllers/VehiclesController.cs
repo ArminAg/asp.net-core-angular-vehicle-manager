@@ -20,6 +20,18 @@ namespace asp.net_core_angular_vehicle_manager.Controllers
             this.mapper = mapper;
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetVehicle(int id)
+        {
+            var vehicle = await context.Vehicles.Include(v => v.Features).SingleOrDefaultAsync(v => v.Id == id);
+
+            if (vehicle == null)
+                return NotFound();
+
+            var vehicleResource = mapper.Map<Vehicle, VehicleResource>(vehicle);
+            return Ok(vehicleResource);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateVehicle([FromBody] VehicleResource vehicleResource)
         {
@@ -60,7 +72,7 @@ namespace asp.net_core_angular_vehicle_manager.Controllers
 
             if (vehicle == null)
                 return NotFound();
-                
+
             mapper.Map<VehicleResource, Vehicle>(vehicleResource, vehicle);
             vehicle.LastUpdate = DateTime.Now;
 
