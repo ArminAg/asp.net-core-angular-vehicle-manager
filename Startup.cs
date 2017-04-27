@@ -8,11 +8,12 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using asp.net_core_angular_vehicle_manager.Core;
+using asp.net_core_angular_vehicle_manager.Core.Repositories;
 using asp.net_core_angular_vehicle_manager.Persistence;
 using asp.net_core_angular_vehicle_manager.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
-using asp.net_core_angular_vehicle_manager.Core.Repositories;
 
 namespace WebApplicationBasic
 {
@@ -34,6 +35,7 @@ namespace WebApplicationBasic
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IVehicleRepository, VehicleRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddAutoMapper();
             
