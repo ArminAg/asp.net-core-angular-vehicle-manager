@@ -1,6 +1,6 @@
 <h1>New Vehicle</h1>
 <p>{{ vehicle | json }}</p>
-<form>
+<form (ngSubmit)="submit()">
   <div class="form-group">
     <label for="make">Make</label>
     <select name="makeId" id="make" class="form-control" (change)="onMakeChange()" [(ngModel)]="vehicle.makeId">
