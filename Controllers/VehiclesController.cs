@@ -4,7 +4,6 @@ using asp.net_core_angular_vehicle_manager.Controllers.Resources;
 using asp.net_core_angular_vehicle_manager.Core;
 using asp.net_core_angular_vehicle_manager.Core.Models;
 using asp.net_core_angular_vehicle_manager.Core.Repositories;
-using asp.net_core_angular_vehicle_manager.Persistence;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
