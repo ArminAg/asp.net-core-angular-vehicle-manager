@@ -6,7 +6,7 @@ namespace asp.net_core_angular_vehicle_manager.Core.Repositories
 {
     public interface IVehicleRepository
     {
-        Task<IEnumerable<Vehicle>> GetVehicles(VehicleQuery queryObj);
+        Task<QueryResult<Vehicle>> GetVehicles(VehicleQuery queryObj);
         Task<Vehicle> GetVehicle(int id, bool includeRelated = true);
         void Add(Vehicle vehicle);
         void Remove(Vehicle vehicle);
