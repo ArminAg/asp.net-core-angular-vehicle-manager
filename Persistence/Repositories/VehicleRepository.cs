@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using asp.net_core_angular_vehicle_manager.Core.Models;
 using asp.net_core_angular_vehicle_manager.Core.Repositories;
@@ -14,14 +15,22 @@ namespace asp.net_core_angular_vehicle_manager.Persistence.Repositories
             this.context = context;
         }
 
-        public async Task<IEnumerable<Vehicle>> GetVehicles()
+        public async Task<IEnumerable<Vehicle>> GetVehicles(Filter filter)
         {
-            return await context.Vehicles
+            var query = context.Vehicles
                 .Include(v => v.Model)
                     .ThenInclude(m => m.Make)
                 .Include(v => v.Features)
                     .ThenInclude(vf => vf.Feature)
-                .ToListAsync();
+                .AsQueryable();
+            
+            if (filter.MakeId.HasValue)
+                query = query.Where(v => v.Model.MakeId == filter.MakeId.Value);
+
+            if (filter.ModelId.HasValue)
+                query = query.Where(v => v.ModelId == filter.ModelId.Value);
+            
+            return await query.ToListAsync();
         }
         
         public async Task<Vehicle> GetVehicle(int id, bool includeRelated = true)
