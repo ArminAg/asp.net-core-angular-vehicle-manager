@@ -25,6 +25,7 @@ namespace asp.net_core_angular_vehicle_manager.Controllers
             this.mapper = mapper;
         }
 
+        [HttpGet]
         public async Task<IEnumerable<VehicleResource>> GetVehicles()
         {
             var vehicles = await repository.GetVehicles();
