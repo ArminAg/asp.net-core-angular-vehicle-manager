@@ -1,3 +1,4 @@
+import { PaginationComponent } from './components/shared/pagination.component';
 import { VehicleListComponent } from './components/vehicle-list/vehicle-list';
 import { ErrorHandler } from '@angular/core';
 import { AppErrorHandler } from './app.error-handler';
@@ -25,7 +26,8 @@ import { VehicleService } from './services/vehicle.service';
         FetchDataComponent,
         HomeComponent,
         VehicleFormComponent,
-        VehicleListComponent
+        VehicleListComponent,
+        PaginationComponent
     ],
     imports: [
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
