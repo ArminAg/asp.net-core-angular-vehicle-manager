@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using asp.net_core_angular_vehicle_manager.Core.Models;
 using asp.net_core_angular_vehicle_manager.Core.Repositories;
@@ -11,6 +12,16 @@ namespace asp.net_core_angular_vehicle_manager.Persistence.Repositories
         public VehicleRepository(VehicleManagerDbContext context)
         {
             this.context = context;
+        }
+
+        public async Task<IEnumerable<Vehicle>> GetVehicles()
+        {
+            return await context.Vehicles
+                .Include(v => v.Model)
+                    .ThenInclude(m => m.Make)
+                .Include(v => v.Features)
+                    .ThenInclude(vf => vf.Feature)
+                .ToListAsync();
         }
         
         public async Task<Vehicle> GetVehicle(int id, bool includeRelated = true)

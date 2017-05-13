@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using asp.net_core_angular_vehicle_manager.Controllers.Resources;
 using asp.net_core_angular_vehicle_manager.Core;
@@ -22,6 +23,12 @@ namespace asp.net_core_angular_vehicle_manager.Controllers
             this.unitOfWork = unitOfWork;
             this.repository = repository;
             this.mapper = mapper;
+        }
+
+        public async Task<IEnumerable<VehicleResource>> GetVehicles()
+        {
+            var vehicles = await repository.GetVehicles();
+            return mapper.Map<IEnumerable<Vehicle>, IEnumerable<VehicleResource>>(vehicles);
         }
 
         [HttpGet("{id}")]
