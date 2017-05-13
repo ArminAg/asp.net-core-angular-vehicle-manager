@@ -4,5 +4,7 @@ namespace asp.net_core_angular_vehicle_manager.Extensions
     {
         string SortBy { get; set; }
         bool IsSortAscending { get; set; }
+        int Page { get; set; }
+        int PageSize { get; set; }
     }
 }

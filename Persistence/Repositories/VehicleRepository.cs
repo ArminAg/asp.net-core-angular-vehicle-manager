@@ -42,6 +42,8 @@ namespace asp.net_core_angular_vehicle_manager.Persistence.Repositories
 
             query = query.ApplyOrdering(queryObj, columnsMap);
 
+            query = query.ApplyPaging(queryObj);
+
             return await query.ToListAsync();
         }
        
