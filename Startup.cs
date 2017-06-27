@@ -14,6 +14,7 @@ using asp.net_core_angular_vehicle_manager.Persistence;
 using asp.net_core_angular_vehicle_manager.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
+using asp.net_core_angular_vehicle_manager.Core.Models;
 
 namespace WebApplicationBasic
 {
@@ -34,6 +35,7 @@ namespace WebApplicationBasic
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<PhotoSettings>(Configuration.GetSection("PhotoSettings"));
             services.AddScoped<IVehicleRepository, VehicleRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
