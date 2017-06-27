@@ -1,3 +1,4 @@
+import { VehicleViewComponent } from './components/vehicle-view/vehicle-view.component';
 import { PaginationComponent } from './components/shared/pagination.component';
 import { VehicleListComponent } from './components/vehicle-list/vehicle-list';
 import { ErrorHandler } from '@angular/core';
@@ -27,6 +28,7 @@ import { VehicleService } from './services/vehicle.service';
         HomeComponent,
         VehicleFormComponent,
         VehicleListComponent,
+        VehicleViewComponent,
         PaginationComponent
     ],
     imports: [
@@ -36,7 +38,8 @@ import { VehicleService } from './services/vehicle.service';
         RouterModule.forRoot([
             { path: '', redirectTo: 'vehicles', pathMatch: 'full' },
             { path: 'vehicles/new', component: VehicleFormComponent },
-            { path: 'vehicles/:id', component: VehicleFormComponent },
+            { path: 'vehicles/edit/:id', component: VehicleFormComponent },
+            { path: 'vehicles/:id', component: VehicleViewComponent },
             { path: 'vehicles', component: VehicleListComponent },
             { path: 'home', component: HomeComponent },
             { path: 'counter', component: CounterComponent },
