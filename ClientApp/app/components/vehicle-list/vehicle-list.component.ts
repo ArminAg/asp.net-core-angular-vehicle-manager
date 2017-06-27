@@ -3,7 +3,7 @@ import { Vehicle, KeyValuePair } from './../../models/vehicle';
 import { OnInit, Component } from '@angular/core';
 
 @Component({
-    templateUrl: 'vehicle-list.html'
+    templateUrl: 'vehicle-list.component.html'
 })
 export class VehicleListComponent implements OnInit {
     private readonly PAGE_SIZE = 3;

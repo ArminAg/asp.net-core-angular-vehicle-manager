@@ -1,6 +1,6 @@
 import { VehicleViewComponent } from './components/vehicle-view/vehicle-view.component';
 import { PaginationComponent } from './components/shared/pagination.component';
-import { VehicleListComponent } from './components/vehicle-list/vehicle-list';
+import { VehicleListComponent } from './components/vehicle-list/vehicle-list.component';
 import { ErrorHandler } from '@angular/core';
 import { AppErrorHandler } from './app.error-handler';
 import { NgModule } from '@angular/core';
