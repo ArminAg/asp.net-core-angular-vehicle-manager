@@ -8,9 +8,10 @@ using asp.net_core_angular_vehicle_manager.Persistence;
 namespace AspNetCoreAngularVehicleManager.Migrations
 {
     [DbContext(typeof(VehicleManagerDbContext))]
-    partial class VehicleManagerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170627205147_AddPhoto")]
+    partial class AddPhoto
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.1")
