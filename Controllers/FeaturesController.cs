@@ -4,6 +4,7 @@ using asp.net_core_angular_vehicle_manager.Controllers.Resources;
 using asp.net_core_angular_vehicle_manager.Core.Models;
 using asp.net_core_angular_vehicle_manager.Persistence;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

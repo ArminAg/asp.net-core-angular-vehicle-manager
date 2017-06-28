@@ -6,6 +6,7 @@ using asp.net_core_angular_vehicle_manager.Core;
 using asp.net_core_angular_vehicle_manager.Core.Models;
 using asp.net_core_angular_vehicle_manager.Core.Repositories;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -46,6 +47,7 @@ namespace asp.net_core_angular_vehicle_manager.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateVehicle([FromBody] SaveVehicleResource vehicleResource)
         {
             if (!ModelState.IsValid)
@@ -64,6 +66,7 @@ namespace asp.net_core_angular_vehicle_manager.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize]
         public async Task<IActionResult> UpdateVehicle(int id, [FromBody] SaveVehicleResource vehicleResource)
         {
             if (!ModelState.IsValid)
@@ -85,6 +88,7 @@ namespace asp.net_core_angular_vehicle_manager.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteVehicle(int id)
         {
             var vehicle = await repository.GetVehicle(id, includeRelated: false);

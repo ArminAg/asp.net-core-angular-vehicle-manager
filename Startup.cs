@@ -41,7 +41,7 @@ namespace WebApplicationBasic
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddAutoMapper();
-            
+
             services.AddDbContext<VehicleManagerDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
             // Add framework services.
             services.AddMvc();
@@ -56,7 +56,8 @@ namespace WebApplicationBasic
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions {
+                app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+                {
                     HotModuleReplacement = true
                 });
             }
@@ -66,6 +67,15 @@ namespace WebApplicationBasic
             }
 
             app.UseStaticFiles();
+
+            var options = new JwtBearerOptions
+            {
+                // Determines who these tokens are for
+                Audience = "https://api.vehiclemanager.com",
+                // Party that is generating these authentication tokens
+                Authority = "https://vehiclemanager.eu.auth0.com/"
+            };
+            app.UseJwtBearerAuthentication(options); // Middleware to verify JSON web tokens passed with the request
 
             app.UseMvc(routes =>
             {
