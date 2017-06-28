@@ -1,5 +1,6 @@
+import * as Raven from 'raven-js';
 import { ToastyService } from 'ng2-toasty';
-import { ErrorHandler, Inject, NgZone } from "@angular/core";
+import { ErrorHandler, Inject, NgZone, isDevMode } from "@angular/core";
 
 export class AppErrorHandler implements ErrorHandler {
     constructor(
@@ -17,5 +18,10 @@ export class AppErrorHandler implements ErrorHandler {
                 timeout: 5000
             });
         });
+        
+        if (!isDevMode())
+            Raven.captureException(error.originalError || error);
+        else
+            throw error;
     }
 }

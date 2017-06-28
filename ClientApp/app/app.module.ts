@@ -1,3 +1,4 @@
+import * as Raven from 'raven-js';
 import { BrowserXhrWithProgress, ProgressService } from './services/progress.service';
 import { BrowserXhr } from '@angular/http';
 import { PhotoService } from './services/photo.service';
@@ -20,6 +21,8 @@ import { CounterComponent } from './components/counter/counter.component';
 import { VehicleFormComponent } from './components/vehicle-form/vehicle-form.component';
 
 import { VehicleService } from './services/vehicle.service';
+
+Raven.config('https://591ae1bfe4d8476fa774bf7dc4228711@sentry.io/185274').install();
 
 @NgModule({
     bootstrap: [ AppComponent ],
