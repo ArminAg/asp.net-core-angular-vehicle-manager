@@ -1,3 +1,5 @@
+import { BrowserXhrWithProgress, ProgressService } from './services/progress.service';
+import { BrowserXhr } from '@angular/http';
 import { PhotoService } from './services/photo.service';
 import { VehicleViewComponent } from './components/vehicle-view/vehicle-view.component';
 import { PaginationComponent } from './components/shared/pagination.component';
@@ -50,8 +52,10 @@ import { VehicleService } from './services/vehicle.service';
     ],
     providers: [
         { provide: ErrorHandler, useClass: AppErrorHandler },
+        { provide: BrowserXhr, useClass: BrowserXhrWithProgress },
         VehicleService,
-        PhotoService
+        PhotoService,
+        ProgressService
     ]
 })
 export class AppModule {
