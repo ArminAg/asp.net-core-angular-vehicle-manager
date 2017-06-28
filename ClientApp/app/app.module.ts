@@ -1,3 +1,4 @@
+import { AuthService } from './services/auth.service';
 import * as Raven from 'raven-js';
 import { BrowserXhrWithProgress, ProgressService } from './services/progress.service';
 import { BrowserXhr } from '@angular/http';
@@ -56,6 +57,7 @@ Raven.config('https://591ae1bfe4d8476fa774bf7dc4228711@sentry.io/185274').instal
     providers: [
         { provide: ErrorHandler, useClass: AppErrorHandler },
         { provide: BrowserXhr, useClass: BrowserXhrWithProgress },
+        AuthService,
         VehicleService,
         PhotoService,
         ProgressService
