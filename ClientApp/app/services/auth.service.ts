@@ -18,40 +18,42 @@ export class AuthService {
         scope: 'openid profile'
     });
 
-    constructor(public router: Router) { }
+    constructor(public router: Router) { 
+        this.readUserProfileFromLocalStorage();
+        this.readRolesFromLocalStorage();
+    }
 
     public login(): void {
         this.auth0.authorize();
     }
 
     public handleAuthentication(): void {
-        var token = localStorage.getItem('access_token');
-        if (token) {
-            var jwtHelper = new JwtHelper();
-            var decodedToken = jwtHelper.decodeToken(token);
-            this.roles = decodedToken['https://vehiclemanager.com/roles'];
-        }
         this.auth0.parseHash((error, authResult) => {
             if (authResult && authResult.accessToken) {
                 window.location.hash = '';
                 this.setSession(authResult);
-
-                var jwtHelper = new JwtHelper();
-                var decodedToken = jwtHelper.decodeToken(authResult.accessToken);
-                this.roles = decodedToken['https://vehiclemanager.com/roles'];
-
-                this.getProfile();
+                this.setUserProfile();
+                this.readRolesFromLocalStorage();
             } else if (error) {
                 console.log(error);
             }
         });
     }
 
-    public getProfile(): void {
+    private readUserProfileFromLocalStorage() {
         this.userProfile = JSON.parse(localStorage.getItem('profile'));
-        if (this.userProfile)
-            return this.userProfile;
+    }
 
+    private readRolesFromLocalStorage() {
+        var token = localStorage.getItem('access_token');
+        if (token) {
+            var jwtHelper = new JwtHelper();
+            var decodedToken = jwtHelper.decodeToken(token);
+            this.roles = decodedToken['https://vehiclemanager.com/roles'];
+        }
+    }
+
+    private setUserProfile(): void {
         const accessToken = localStorage.getItem('access_token');
         if (!accessToken)
             throw new Error('Access token must exist to fetch profile');
@@ -61,7 +63,6 @@ export class AuthService {
                 throw error;
 
             if (userProfile) {
-                this.userProfile = userProfile;
                 localStorage.setItem('profile', JSON.stringify(userProfile));
             }
         });
