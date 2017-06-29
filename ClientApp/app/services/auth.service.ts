@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { JwtHelper } from 'angular2-jwt';
 import 'rxjs/add/operator/filter';
 import * as auth0 from 'auth0-js';
 
 @Injectable()
 export class AuthService {
     userProfile: any;
+    private roles: string[] = [];
 
     auth0 = new auth0.WebAuth({
         clientID: 'LpuGTpXge5GZwRduXXOxJ8xcXRERSR7x',
@@ -23,10 +25,21 @@ export class AuthService {
     }
 
     public handleAuthentication(): void {
+        var token = localStorage.getItem('access_token');
+        if (token) {
+            var jwtHelper = new JwtHelper();
+            var decodedToken = jwtHelper.decodeToken(token);
+            this.roles = decodedToken['https://vehiclemanager.com/roles'];
+        }
         this.auth0.parseHash((error, authResult) => {
             if (authResult && authResult.accessToken) {
                 window.location.hash = '';
                 this.setSession(authResult);
+
+                var jwtHelper = new JwtHelper();
+                var decodedToken = jwtHelper.decodeToken(authResult.accessToken);
+                this.roles = decodedToken['https://vehiclemanager.com/roles'];
+
                 this.getProfile();
             } else if (error) {
                 console.log(error);
@@ -67,11 +80,16 @@ export class AuthService {
         localStorage.removeItem('expires_at');
         localStorage.removeItem('profile');
         this.userProfile = null;
+        this.roles = [];
     }
 
     public isAuthenticated(): boolean {
         // Check whether the current time is past the access token's expiry time
         const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
         return new Date().getTime() < expiresAt;
+    }
+
+    public isInRole(roleName) {
+        return this.roles.indexOf(roleName) > -1;
     }
 }
