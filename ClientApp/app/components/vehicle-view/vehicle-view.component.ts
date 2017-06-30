@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { BrowserXhr } from '@angular/http';
 import { NgZone } from '@angular/core';
 import { ProgressService, BrowserXhrWithProgress } from './../../services/progress.service';
@@ -29,7 +30,8 @@ export class VehicleViewComponent implements OnInit {
         private toasty: ToastyService,
         private progressService: ProgressService,
         private photoService: PhotoService,
-        private vehicleService: VehicleService
+        private vehicleService: VehicleService,
+        private authService: AuthService
     ) {
         route.params.subscribe(p => {
             this.vehicleId = +p['id'];

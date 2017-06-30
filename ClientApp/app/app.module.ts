@@ -49,8 +49,8 @@ Raven.config('https://591ae1bfe4d8476fa774bf7dc4228711@sentry.io/185274').instal
         ToastyModule.forRoot(),
         RouterModule.forRoot([
             { path: '', redirectTo: 'vehicles', pathMatch: 'full' },
-            { path: 'vehicles/new', component: VehicleFormComponent },
-            { path: 'vehicles/edit/:id', component: VehicleFormComponent },
+            { path: 'vehicles/new', component: VehicleFormComponent, canActivate: [AuthGuard] },
+            { path: 'vehicles/edit/:id', component: VehicleFormComponent, canActivate: [AuthGuard] },
             { path: 'vehicles/:id', component: VehicleViewComponent },
             { path: 'vehicles', component: VehicleListComponent },
             { path: 'admin', component: AdminComponent, canActivate: [AdminAuthGuard] },
