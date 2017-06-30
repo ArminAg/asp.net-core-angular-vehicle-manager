@@ -16,6 +16,7 @@ import { RouterModule } from '@angular/router';
 import { UniversalModule } from 'angular2-universal';
 import { ToastyModule } from 'ng2-toasty';
 import { FormsModule } from '@angular/forms';
+import { ChartModule } from 'angular2-chartjs';
 
 import { AppComponent } from './components/app/app.component'
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
@@ -47,6 +48,7 @@ Raven.config('https://591ae1bfe4d8476fa774bf7dc4228711@sentry.io/185274').instal
         UniversalModule, // Must be first import. This automatically imports BrowserModule, HttpModule, and JsonpModule too.
         FormsModule,
         ToastyModule.forRoot(),
+        ChartModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'vehicles', pathMatch: 'full' },
             { path: 'vehicles/new', component: VehicleFormComponent, canActivate: [AuthGuard] },
