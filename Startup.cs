@@ -15,6 +15,7 @@ using asp.net_core_angular_vehicle_manager.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
 using asp.net_core_angular_vehicle_manager.Core.Models;
+using asp.net_core_angular_vehicle_manager.Controllers;
 
 namespace WebApplicationBasic
 {
@@ -43,6 +44,11 @@ namespace WebApplicationBasic
             services.AddAutoMapper();
 
             services.AddDbContext<VehicleManagerDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Default")));
+
+            services.AddAuthorization(options => {
+                options.AddPolicy(Policies.RequireAdminRole, policy => policy.RequireClaim("https://vehiclemanager.com/roles", "Admin"));
+            });
+
             // Add framework services.
             services.AddMvc();
         }
