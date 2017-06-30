@@ -8,14 +8,16 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using asp.net_core_angular_vehicle_manager.Core;
-using asp.net_core_angular_vehicle_manager.Core.Repositories;
-using asp.net_core_angular_vehicle_manager.Persistence;
-using asp.net_core_angular_vehicle_manager.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
 using AutoMapper;
-using asp.net_core_angular_vehicle_manager.Core.Models;
 using asp.net_core_angular_vehicle_manager.Controllers;
+using asp.net_core_angular_vehicle_manager.Core;
+using asp.net_core_angular_vehicle_manager.Core.Models;
+using asp.net_core_angular_vehicle_manager.Core.Repositories;
+using asp.net_core_angular_vehicle_manager.Core.Services;
+using asp.net_core_angular_vehicle_manager.Persistence;
+using asp.net_core_angular_vehicle_manager.Persistence.Repositories;
+using asp.net_core_angular_vehicle_manager.Persistence.Services;
 
 namespace WebApplicationBasic
 {
@@ -40,6 +42,7 @@ namespace WebApplicationBasic
             services.AddScoped<IVehicleRepository, VehicleRepository>();
             services.AddScoped<IPhotoRepository, PhotoRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IPhotoService, PhotoService>();
 
             services.AddAutoMapper();
 
