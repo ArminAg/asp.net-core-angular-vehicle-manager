@@ -45,7 +45,7 @@ export class AuthService {
     }
 
     private readRolesFromLocalStorage() {
-        var token = localStorage.getItem('access_token');
+        var token = localStorage.getItem('token');
         if (token) {
             var jwtHelper = new JwtHelper();
             var decodedToken = jwtHelper.decodeToken(token);
@@ -54,7 +54,7 @@ export class AuthService {
     }
 
     private setUserProfile(): void {
-        const accessToken = localStorage.getItem('access_token');
+        const accessToken = localStorage.getItem('token');
         if (!accessToken)
             throw new Error('Access token must exist to fetch profile');
 
@@ -71,13 +71,13 @@ export class AuthService {
     private setSession(authResult): void {
         // Set the time that the access token will expire at
         const expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
-        localStorage.setItem('access_token', authResult.accessToken);
+        localStorage.setItem('token', authResult.accessToken);
         localStorage.setItem('expires_at', expiresAt);
     }
 
     public logout(): void {
         // Remove tokens and expiry time from localStorage
-        localStorage.removeItem('access_token');
+        localStorage.removeItem('token');
         localStorage.removeItem('expires_at');
         localStorage.removeItem('profile');
         this.userProfile = null;

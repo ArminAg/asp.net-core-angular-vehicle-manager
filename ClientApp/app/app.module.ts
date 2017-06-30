@@ -1,3 +1,5 @@
+import { AdminAuthGuard } from './services/admin-auth-guard.service';
+import { AuthGuard } from './services/auth.guard.service';
 import { AdminComponent } from './components/admin/admin.component';
 import { AuthService } from './services/auth.service';
 import * as Raven from 'raven-js';
@@ -23,6 +25,7 @@ import { CounterComponent } from './components/counter/counter.component';
 import { VehicleFormComponent } from './components/vehicle-form/vehicle-form.component';
 
 import { VehicleService } from './services/vehicle.service';
+import { AUTH_PROVIDERS } from "angular2-jwt/angular2-jwt";
 
 Raven.config('https://591ae1bfe4d8476fa774bf7dc4228711@sentry.io/185274').install();
 
@@ -50,7 +53,7 @@ Raven.config('https://591ae1bfe4d8476fa774bf7dc4228711@sentry.io/185274').instal
             { path: 'vehicles/edit/:id', component: VehicleFormComponent },
             { path: 'vehicles/:id', component: VehicleViewComponent },
             { path: 'vehicles', component: VehicleListComponent },
-            { path: 'admin', component: AdminComponent },
+            { path: 'admin', component: AdminComponent, canActivate: [AdminAuthGuard] },
             { path: 'home', component: HomeComponent },
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },
@@ -59,11 +62,12 @@ Raven.config('https://591ae1bfe4d8476fa774bf7dc4228711@sentry.io/185274').instal
     ],
     providers: [
         { provide: ErrorHandler, useClass: AppErrorHandler },
-        { provide: BrowserXhr, useClass: BrowserXhrWithProgress },
         AuthService,
         VehicleService,
         PhotoService,
-        ProgressService
+        AuthGuard,
+        AdminAuthGuard,
+        AUTH_PROVIDERS
     ]
 })
 export class AppModule {

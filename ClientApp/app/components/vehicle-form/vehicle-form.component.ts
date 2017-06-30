@@ -92,6 +92,7 @@ export class VehicleFormComponent implements OnInit {
 
   submit() {
     var result$ = (this.vehicle.id) ? this.vehicleService.update(this.vehicle) : this.vehicleService.create(this.vehicle);
+    console.log('submit');
     result$.subscribe(vehicle => {
       this.toastyService.success({
         title: 'Success',
@@ -100,7 +101,7 @@ export class VehicleFormComponent implements OnInit {
         showClose: true,
         timeout: 5000
       });
-      this.router.navigate(['/vehicles/', vehicle.id]);
+      //his.router.navigate(['/vehicles/', vehicle.id]);
     });
   }
 
